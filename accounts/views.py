@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from vendor.forms import VendorForm
 from .forms import UserForm
 from .models import User, UserProfile
-from django.contrib import messages
+from django.contrib import messages, auth
 # Create your views here.
 
 
@@ -88,3 +88,37 @@ def registerVendor(request):
     }
 
     return render(request, 'accounts/registerVendor.html', context)
+
+
+def login(request):
+    if request.user.is_authenticated:
+        messages.warning(request, "You are already login")
+        return redirect('dashboard')
+
+    elif request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+
+        user = auth.authenticate(email=email, password=password)
+        if user is not None:
+            auth.login(request, user)
+            messages.success(request, "You are now login.")
+            return redirect('dashboard')
+        else:
+            messages.error(request, "Invalid login credentials.")
+            return redirect('login')
+
+    return render(request, 'accounts/login.html')
+
+def logout(request):
+    auth.logout(request)
+    messages.info(request, "You are logout.")
+    return redirect('login')
+
+
+def dashboard(request):
+
+    context = {
+
+    }
+    return render(request, 'accounts/dashboard.html', context)
