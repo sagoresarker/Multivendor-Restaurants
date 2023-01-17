@@ -1,0 +1,16 @@
+Recent security protocol of Google will not allow you to send messages through less secure apps.
+
+So the fix is:
+
+Turn ON less secure apps.
+
+But only enabling this doesn't seem to work now. Google does not allow apps to send messages using your default gmail password. So to send messages you have to follow these two simple steps:
+
+Turn ON two factor authentication of your gmail account. Link to turn it on. https://myaccount.google.com/signinoptions/two-step-verification/enroll-welcome?pli=1
+
+Then create app password for your gmail account from Google. It will be a 16 digit code. Put it in settings.py or _credentials.py by: EMAIL_HOST_PASSWORD = 'sixt eend igit code' Link to know how to set up your application password for email
+https://support.google.com/accounts/answer/185833?hl=en
+
+And BINGO! Problem will be solved.
+
+Note: App password can only be created if you have enabled 2 factor authentication for your account.
